@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField]private float startingHealth;
-    private float currentHealth;
+    [SerializeField] private float startingHealth;
+    public float currentHealth {get; private set;}
 
     private void Awake()
     {
@@ -18,11 +18,18 @@ public class Health : MonoBehaviour
 
         if(currentHealth > 0)
         {
-
+            //Player Gets Hurt
         }
         else
         {
-            
+            //Player Dies
+            GetComponent<PlayerMovemente_Test>().enabled = false;   
         }
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+            TakeDamage(1);
     }
 }

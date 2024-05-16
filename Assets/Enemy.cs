@@ -16,7 +16,7 @@ public class New_BehaviourScript : MonoBehaviour
     private float cooldownTimer = Mathf.Infinity;
     private Animator anim;
 
-    private Vida playerHealth;
+    private Health playerHealth;
 
     private void Awake()
     {
@@ -31,7 +31,8 @@ public class New_BehaviourScript : MonoBehaviour
             if(cooldownTimer >= attackCooldown)
             {
                 cooldownTimer = 0;
-                print("Atack");
+                
+                
             }
         }
     }
@@ -41,6 +42,11 @@ public class New_BehaviourScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
         new Vector3(boxCollider.bounds.size.x *range,boxCollider.bounds.size.y ,boxCollider.bounds.size.z), 0 , Vector2.left, 0, playerLayer);
         return hit.collider != null;
+
+        if(hit.collider != null)
+        {
+            playerHealth = hit.transform.GetComponent<Health>();
+        }
     }
 
     private void OnDrawGizmos()
@@ -52,9 +58,10 @@ public class New_BehaviourScript : MonoBehaviour
 
     private void DamagePlayer()
     {
+        // if player in range takes damage
         if(PlayerInsight())
         {
-
+            playerHealth.TakeDamage(damage);
         }
     }
 }
