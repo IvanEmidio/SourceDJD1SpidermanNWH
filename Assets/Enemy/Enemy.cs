@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+
+    [Header ("Attack Parameters")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float range;
     
-    [SerializeField] private float colliderDistance;
     [SerializeField] private int damage;
+
+    [Header ("Collider Parameters")]
     [SerializeField] private BoxCollider2D boxCollider;
+
+    [SerializeField] private float colliderDistance;
+
+    [Header ("Player Layer")]
     [SerializeField] private LayerMask playerLayer;
 
     private float cooldownTimer = Mathf.Infinity;

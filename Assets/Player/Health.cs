@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     public float currentHealth {get; private set;}
+    private bool dead;
 
     private void Awake()
     {
@@ -22,8 +23,25 @@ public class Health : MonoBehaviour
         }
         else
         {
+            if(!dead)
+            {
+                //Player
+                if(GetComponent<PlayerMovemente_Test>() != null)
+                    GetComponent<PlayerMovemente_Test>().enabled = false;
+
+                //Enemy
+                if(GetComponentInParent<Patrol>() != null)
+                    GetComponentInParent<Patrol>().enabled = false;
+
+                // if(GetComponent<Enemy>() != null)
+                   // GetComponent<Enemy>().enabled = false;
+
+                dead = true; 
+
+
+            }
             //Player Dies
-            GetComponent<PlayerMovemente_Test>().enabled = false;   
+              
         }
     }
 
