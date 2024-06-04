@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F) && cooldownTimer > attackcooldown && playerMovement.canAttack())
+        if(Input.GetKeyDown(KeyCode.F) && cooldownTimer > attackcooldown && playerMovement.canAttack() && playerMovement.currentstamina >= playerMovement.attackcost)
             Attack();
 
         cooldownTimer += Time.deltaTime;

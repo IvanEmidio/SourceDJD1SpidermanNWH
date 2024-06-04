@@ -12,9 +12,9 @@ public class PlayerMovemente_Test : MonoBehaviour
     [SerializeField] private float jump;
 
     [SerializeField] private Image StaminaBar;
-    [SerializeField] private float currentstamina;
-    [SerializeField] private float maxstamina;
-    [SerializeField] private float attackcost;
+    [SerializeField] public float currentstamina;
+    [SerializeField] public float maxstamina;
+    [SerializeField] public float attackcost;
     [SerializeField] private float Chargerate;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
@@ -70,6 +70,8 @@ public class PlayerMovemente_Test : MonoBehaviour
         }
         else wallJumpCooldown += Time.deltaTime;
 
+        // Stamina Controller
+
         if(Input.GetKeyDown("f"))
         {
             currentstamina -= attackcost;
@@ -79,7 +81,7 @@ public class PlayerMovemente_Test : MonoBehaviour
             StaminaBar.fillAmount = currentstamina / maxstamina;
 
             if(recharge != null) StopCoroutine(recharge);
-            recharge = StartCoroutine(RechargeStamina());
+            recharge = StartCoroutine(RechargeStamina());  
         }
         
     }
@@ -113,7 +115,9 @@ public class PlayerMovemente_Test : MonoBehaviour
 
     public bool canAttack()
     {
+        
         return horizontalInput == 0 && isGrounded() && !onWall();
+         
     }
 
     private bool isGrounded()
