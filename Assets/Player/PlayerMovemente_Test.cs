@@ -58,14 +58,17 @@ public class PlayerMovemente_Test : MonoBehaviour
             
         }
         else wallJumpCooldown += Time.deltaTime;
+        
     }
     private void Jump()
     {
+        // Jumping 
         if(isGrounded())
         {
             body.velocity = new Vector2(body.velocity.x, jump);
         
         }
+        // Crawl walls Mechanic
         else if (onWall() && !isGrounded())
         {
             if(horizontalInput == 0)
