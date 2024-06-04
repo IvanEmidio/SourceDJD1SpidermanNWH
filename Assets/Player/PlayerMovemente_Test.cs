@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovemente_Test : MonoBehaviour
 {
@@ -9,12 +10,22 @@ public class PlayerMovemente_Test : MonoBehaviour
     [SerializeField]private LayerMask groundLayer;
     [SerializeField]private LayerMask wallLayer;
     [SerializeField] private float jump;
+
+    [SerializeField] private Image StaminaBar;
+    [SerializeField] private float currentstamina;
+    [SerializeField] private float maxstamina;
+    [SerializeField] private float attackcost;
+    [SerializeField] private float Chargerate;
     private Rigidbody2D body;
     private BoxCollider2D boxCollider;
     private float wallJumpCooldown;
     private float horizontalInput;
 
     private Animator anim;
+    
+    private Coroutine recharge;
+
+    
     
     
 
@@ -58,6 +69,18 @@ public class PlayerMovemente_Test : MonoBehaviour
             
         }
         else wallJumpCooldown += Time.deltaTime;
+
+        if(Input.GetKeyDown("f"))
+        {
+            currentstamina -= attackcost;
+            
+            if(currentstamina < 0) currentstamina = 0;
+
+            StaminaBar.fillAmount = currentstamina / maxstamina;
+
+            if(recharge != null) StopCoroutine(recharge);
+            recharge = StartCoroutine(RechargeStamina());
+        }
         
     }
     private void Jump()
@@ -105,4 +128,17 @@ public class PlayerMovemente_Test : MonoBehaviour
         return raycastHit.collider != null;
     }
     
+    private IEnumerator RechargeStamina()
+    {
+        yield return new WaitForSeconds(1f);
+
+        while(currentstamina < maxstamina)
+        {
+            currentstamina += Chargerate / 10f;
+            if(currentstamina > maxstamina) currentstamina = maxstamina;
+
+            StaminaBar.fillAmount = currentstamina / maxstamina;
+            yield return new WaitForSeconds(.1f);
+        }
+    }
 }
