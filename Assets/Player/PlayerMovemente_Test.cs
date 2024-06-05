@@ -98,7 +98,7 @@ public class PlayerMovemente_Test : MonoBehaviour
         {
             if(horizontalInput == 0)
             {
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
+                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 20, 0);
                 transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z); 
             }
             else

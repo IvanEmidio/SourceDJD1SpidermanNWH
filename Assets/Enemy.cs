@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class New_BehaviourScript : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+    [Header ("Attack Parameters")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float range;
+    [SerializeField] private int damage = 1;
+
+    [Header("Collider Parameters")]
     
     [SerializeField] private float colliderDistance;
-    [SerializeField] private int damage;
     [SerializeField] private BoxCollider2D boxCollider;
+
+    [Header("Player Layer")]
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] public int health;
 
     private float cooldownTimer = Mathf.Infinity;
     private Animator anim;
@@ -20,33 +26,40 @@ public class New_BehaviourScript : MonoBehaviour
 
     private void Awake()
     {
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
         cooldownTimer += Time.deltaTime;
 
-        if(PlayerInsight())
-        { 
-            if(cooldownTimer >= attackCooldown)
+        //Attack only when player in sight?
+        if (PlayerInSight())
+        {
+            if (cooldownTimer >= attackCooldown)
             {
                 cooldownTimer = 0;
-                
-                
+                anim.SetTrigger("meleeAttack");
             }
+        }
+
+        if(health <= 0)
+        {
+            Die();
         }
     }
 
-    private bool PlayerInsight()
-    {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
-        new Vector3(boxCollider.bounds.size.x *range,boxCollider.bounds.size.y ,boxCollider.bounds.size.z), 0 , Vector2.left, 0, playerLayer);
-        return hit.collider != null;
 
-        if(hit.collider != null)
-        {
+    private bool PlayerInSight()
+    {
+        RaycastHit2D hit = 
+            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+            0, Vector2.left, 0, playerLayer);
+
+        if (hit.collider != null)
             playerHealth = hit.transform.GetComponent<Health>();
-        }
+
+        return hit.collider != null;
     }
 
     private void OnDrawGizmos()
@@ -58,10 +71,12 @@ public class New_BehaviourScript : MonoBehaviour
 
     private void DamagePlayer()
     {
-        // if player in range takes damage
-        if(PlayerInsight())
-        {
+        if (PlayerInSight())
             playerHealth.TakeDamage(damage);
-        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

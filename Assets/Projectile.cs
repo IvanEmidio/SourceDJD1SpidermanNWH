@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Animator anim;
     private float lifetime;
+    private int damage = 1;
 
     private void Awake()
     {
@@ -28,13 +29,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.name);
         hit = true;
         boxCollider.enabled = false;
         anim.SetTrigger("Explode");
 
         if(collision.tag == "Enemy")
         {
-            collision.GetComponent<Health>().TakeDamage(1);  
+            collision.GetComponent<Enemy>().health -= damage; 
+            
         }
     }
 
