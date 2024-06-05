@@ -5,10 +5,10 @@ using UnityEngine;
 public class Patrol : MonoBehaviour
 {
     [SerializeField] private Transform leftEdge;
-    [SerializeField] private Transform rightEdge;
+    private Vector3 leftEdgePos;
 
-    [Header ("Enemy")]
-    [SerializeField] private Transform enemy;
+    [SerializeField] private Transform rightEdge;
+    private Vector3 rightEdgePos;
 
     [Header ("Movement parameters")]
     [SerializeField] private float speed;
@@ -19,7 +19,14 @@ public class Patrol : MonoBehaviour
 
     private void Awake()
     {
-        initScale = enemy.localScale;
+        initScale = transform.localScale;
+    }
+
+    private void Start()
+    {
+        initScale = transform.localScale;
+        leftEdgePos = leftEdge.position;
+        rightEdgePos = rightEdge.position;
     }
 
 
@@ -27,7 +34,7 @@ public class Patrol : MonoBehaviour
     {
         if (movingLeft)
         {
-            if(enemy.position.x >= leftEdge.position.x)
+            if(transform.position.x >= leftEdgePos.x)
                 MoveInDirection(-1);
             else
             {
@@ -36,7 +43,7 @@ public class Patrol : MonoBehaviour
         }
         else
         {
-            if(enemy.position.x <= rightEdge.position.x)
+            if(transform.position.x <= rightEdgePos.x)
                 MoveInDirection(1);
             else
                 DirectionChange();
@@ -52,9 +59,9 @@ public class Patrol : MonoBehaviour
     private void MoveInDirection(int _direction)
     {
         // Make enemy face direction
-        enemy.localScale = new Vector3(Mathf.Abs(initScale.x) * _direction, initScale.y, initScale.z);
+        transform.localScale = new Vector3(Mathf.Abs(initScale.x) * _direction, initScale.y, initScale.z);
 
         // Move in that direction
-        enemy.position = new Vector3(enemy.position.x + Time.deltaTime * _direction * speed, enemy.position.y, enemy.position.z);
-    }
+        transform.position = new Vector3(transform.position.x + Time.deltaTime * _direction * speed, transform.position.y, transform.position.z);
+    }   
 }

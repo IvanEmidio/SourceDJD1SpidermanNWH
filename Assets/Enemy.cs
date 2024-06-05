@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes.Test;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -35,10 +36,16 @@ public class Enemy : MonoBehaviour
         //Attack only when player in sight?
         if (PlayerInSight())
         {
+            Debug.Log("Player In Sight");
             if (cooldownTimer >= attackCooldown)
             {
+                Debug.Log("melee");
                 cooldownTimer = 0;
-                anim.SetTrigger("meleeAttack");
+                anim.SetTrigger("meeleAttack");
+            }
+            else
+            {
+                Debug.Log("cooldown not set");
             }
         }
 
@@ -59,9 +66,9 @@ public class Enemy : MonoBehaviour
         if (hit.collider != null)
             playerHealth = hit.transform.GetComponent<Health>();
 
+        
         return hit.collider != null;
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
