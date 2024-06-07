@@ -6,10 +6,14 @@ using UnityEngine.UI;
 
 public class PlayerMovemente_Test : MonoBehaviour
 {
+    [Header("Movement Parameters")]
+
     [SerializeField] private float speed;
     [SerializeField]private LayerMask groundLayer;
     [SerializeField]private LayerMask wallLayer;
     [SerializeField] private float jump;
+
+    [Header("Stamina Parameters")]
 
     [SerializeField] private Image StaminaBar;
     [SerializeField] public float currentstamina;
@@ -128,6 +132,7 @@ public class PlayerMovemente_Test : MonoBehaviour
 
     private bool onWall()
     {
+        
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0,new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
         return raycastHit.collider != null;
     }

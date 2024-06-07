@@ -36,16 +36,15 @@ public class Enemy : MonoBehaviour
         //Attack only when player in sight?
         if (PlayerInSight())
         {
-            Debug.Log("Player In Sight");
+            
             if (cooldownTimer >= attackCooldown)
             {
-                Debug.Log("melee");
                 cooldownTimer = 0;
                 anim.SetTrigger("meeleAttack");
             }
             else
             {
-                Debug.Log("cooldown not set");
+                
             }
         }
 
