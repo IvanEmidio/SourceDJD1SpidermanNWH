@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovemente_Test : MonoBehaviour
+public class PlayerBoss : MonoBehaviour
 {
     [Header("Movement Parameters")]
 
@@ -49,9 +49,9 @@ public class PlayerMovemente_Test : MonoBehaviour
         // Flipping the Character
 
         if(horizontalInput > 0.01f)
-            transform.localScale = new Vector3(1.963776f,1.963776f,1.963776f);
+            transform.localScale = new Vector3(0.34296f,0.34296f,0.34296f);
         else if(horizontalInput < -0.01f)
-            transform.localScale = new Vector3(-1.963776f,1.963776f,1.963776f);
+            transform.localScale = new Vector3(-0.34296f,0.34296f,0.34296f);
 
         // Setting Animations Parameters
         anim.SetBool("Run", horizontalInput != 0);

@@ -33,11 +33,6 @@ public class Projectile : MonoBehaviour
         hit = true;
         boxCollider.enabled = false;
         anim.SetTrigger("Explode");
-
-        if(collision.tag == "RangedEnemy")
-        {
-            collision.GetComponent<RangedEnemy>().health -= damage;              
-        }
         
         if(collision.tag == "Enemy")
         {  
