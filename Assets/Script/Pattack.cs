@@ -34,7 +34,7 @@ public class PAttack : MonoBehaviour
         cooldownTimer = 0;
         //pool
         shoot[FindShoot()].transform.position = firepoint.position;
-        shoot[FindShoot()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+        shoot[FindShoot()].GetComponent<Project>().SetDirection(Mathf.Sign(transform.localScale.x));
 
     }
 

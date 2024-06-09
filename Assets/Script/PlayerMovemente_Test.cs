@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovemente_Test : MonoBehaviour
 {
@@ -146,6 +148,14 @@ public class PlayerMovemente_Test : MonoBehaviour
 
             StaminaBar.fillAmount = currentstamina / maxstamina;
             yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("GroundBound"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

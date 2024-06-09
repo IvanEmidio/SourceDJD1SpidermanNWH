@@ -9,6 +9,8 @@ public class EnemyBulletScript : MonoBehaviour
     public float force;
     private float timer;
 
+    private bool dealtDamage = false;
+
     private int damage = 1;
     // Start is called before the first frame update
     void Start()
@@ -36,9 +38,10 @@ public class EnemyBulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") && !dealtDamage)
         {
-            other.gameObject.GetComponent<HealthBossLevel>().currentHealth -= damage;
+            dealtDamage = true;
+            other.gameObject.GetComponent<HealthBossLevel>().TakeDamage(damage);
             Destroy(gameObject);
         }
     }
