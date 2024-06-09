@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using NaughtyAttributes.Test;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class RangedEnemy : MonoBehaviour
 {
     [Header ("Attack Parameters")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float range;
     [SerializeField] private int damage = 1;
+
+    [Header("Ranged Attack")]
+    [SerializeField] private Transform firepoint;
+    [SerializeField] private GameObject[] shoot;
+
 
     [Header("Collider Parameters")]
     
@@ -19,20 +22,21 @@ public class Enemy : MonoBehaviour
     [Header("Player Layer")]
     [SerializeField] private LayerMask playerLayer;
 
-    private float cooldownTimer = Mathf.Infinity;
-
     [Header("Health")]
     [SerializeField] public int health;
 
-    
+    private float cooldownTimer = Mathf.Infinity;
+
     private Animator anim;
 
-    private Health playerHealth;
+    private Patrol enemyPatrol;
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
+        enemyPatrol = GetComponent<Patrol>();
     }
+
     private void Update()
     {
         cooldownTimer += Time.deltaTime;
@@ -44,20 +48,44 @@ public class Enemy : MonoBehaviour
             if (cooldownTimer >= attackCooldown)
             {
                 cooldownTimer = 0;
-                anim.SetTrigger("meeleAttack");
-            }
-            else
-            {
                 
+                //anim.SetTrigger("rangedAttack");
             }
+            
+        }
+        if(PlayerInSight())
+        {
+            RangedAttack();
         }
 
+        if (enemyPatrol != null) enemyPatrol.enabled = !PlayerInSight();
+        
+        
         if(health <= 0)
         {
             Die();
         }
+        
     }
 
+
+    private void RangedAttack()
+    {
+        cooldownTimer = 0;
+        shoot[FindShoot()].transform.position = firepoint.position;
+        shoot[FindShoot()].GetComponent<EnemyProjectile>().ActivateProjectile();
+    }
+
+    private int FindShoot()
+    {
+        for (int i = 0; i < shoot.Length; i++)
+        {
+            if(!shoot[i].activeInHierarchy)
+              return i;
+        }
+
+        return 0;
+    }
 
     private bool PlayerInSight()
     {
@@ -65,10 +93,7 @@ public class Enemy : MonoBehaviour
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
-
-        if (hit.collider != null)
-            playerHealth = hit.transform.GetComponent<Health>();
-
+        
         
         return hit.collider != null;
     }
@@ -79,14 +104,9 @@ public class Enemy : MonoBehaviour
         new Vector3(boxCollider.bounds.size.x *range,boxCollider.bounds.size.y ,boxCollider.bounds.size.z));
     }
 
-    private void DamagePlayer()
-    {
-        if (PlayerInSight())
-            playerHealth.TakeDamage(damage);
-    }
-
     public void Die()
     {
         Destroy(gameObject);
     }
+
 }

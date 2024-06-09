@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - RangedEnemy
+  - Bound
   layers:
   - Default
   - TransparentFX

@@ -29,16 +29,22 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
+        
         hit = true;
         boxCollider.enabled = false;
         anim.SetTrigger("Explode");
 
-        if(collision.tag == "Enemy")
+        if(collision.tag == "RangedEnemy")
         {
-            collision.GetComponent<Enemy>().health -= damage; 
-            
+            collision.GetComponent<RangedEnemy>().health -= damage;              
         }
+        
+        if(collision.tag == "Enemy")
+        {  
+            collision.GetComponent<Enemy>().health -= damage;          
+        }
+        
+        
     }
 
     public void SetDirection(float _direction)
