@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &40951390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 40951391}
+  m_Layer: 0
+  m_Name: BulletPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &40951391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40951390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.21, y: -1.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 503765010}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &144577705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1519,7 @@ GameObject:
   - component: {fileID: 503765009}
   - component: {fileID: 503765008}
   - component: {fileID: 503765011}
+  - component: {fileID: 503765012}
   m_Layer: 0
   m_Name: "Green Goblin 2\xAA Version"
   m_TagString: Untagged
@@ -1607,6 +1639,7 @@ Transform:
   m_Children:
   - {fileID: 1820186372}
   - {fileID: 817364473}
+  - {fileID: 40951391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &503765011
@@ -1624,6 +1657,20 @@ MonoBehaviour:
   Down: {fileID: 817364473}
   Up: {fileID: 1820186372}
   speed: 15
+--- !u!114 &503765012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503765007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0f702686e8abf4cab2c671f5e44ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 3631808244921124420, guid: 9d3430d0799d3f74085e2c2a784ae88e, type: 3}
+  bulletPos: {fileID: 40951391}
 --- !u!1 &541484612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,10 +1718,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 541484612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650275d0c2e6f5a419e62156f323d150, type: 3}
+  m_Script: {fileID: 11500000, guid: f8d3183a0d6524d4aa9b4e9e25f340c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1560592286}
+  playerHealth: {fileID: 1560592297}
   totalhealthbar: {fileID: 865432460}
   currenthealthbar: {fileID: 1080754341}
 --- !u!1 &556099933
@@ -4468,12 +4515,16 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7017139750649070332, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
     - {fileID: 962725519887847370, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
+    - {fileID: 986550379323030189, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3600067451832587158, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
       insertIndex: 7
       addedObject: {fileID: 1560592282}
+    - targetCorrespondingSourceObject: {fileID: 3600067451832587158, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 1560592297}
     - targetCorrespondingSourceObject: {fileID: 3600067451832587158, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1560592287}
@@ -4513,17 +4564,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4300453920163569838, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
   m_PrefabInstance: {fileID: 1560592280}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1560592286 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 986550379323030189, guid: 2e75912a84f1ab24591347e2ef25dcec, type: 3}
-  m_PrefabInstance: {fileID: 1560592280}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560592281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4748cf0e42c2440458365bddf4861b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1560592287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4549,6 +4589,19 @@ MonoBehaviour:
   - {fileID: 204041726}
   - {fileID: 972792725}
   - {fileID: 1303517236}
+--- !u!114 &1560592297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560592281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73247bcdb2e22b4428e874ec4865a0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
 --- !u!1 &1564831026
 GameObject:
   m_ObjectHideFlags: 0

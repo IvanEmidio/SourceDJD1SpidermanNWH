@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class HealthBossLevel : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     public float currentHealth {get; set;}
@@ -26,15 +26,12 @@ public class Health : MonoBehaviour
             if(!dead)
             {
                 //Player
-                if(GetComponent<PlayerMovemente_Test>() != null)
-                    GetComponent<PlayerMovemente_Test>().enabled = false;
+                if(GetComponent<PlayerBoss>() != null)
+                    GetComponent<PlayerBoss>().enabled = false;
 
                 //Enemy
-                if(GetComponentInParent<Patrol>() != null)
-                    GetComponentInParent<Patrol>().enabled = false;
-
-                // if(GetComponent<Enemy>() != null)
-                   // GetComponent<Enemy>().enabled = false;
+                if(GetComponentInParent<GoblinMoves>() != null)
+                    GetComponentInParent<GoblinMoves>().enabled = false;
 
                 dead = true; 
 
@@ -43,13 +40,8 @@ public class Health : MonoBehaviour
             //Player Dies
               
         }
+        
     }
 
-    /*
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-            TakeDamage(1);
-    }
-    */
 }
+

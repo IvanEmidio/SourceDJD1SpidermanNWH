@@ -9,8 +9,8 @@ public class PlayerBoss : MonoBehaviour
     [Header("Movement Parameters")]
 
     [SerializeField] private float speed;
-    [SerializeField]private LayerMask groundLayer;
-    [SerializeField]private LayerMask wallLayer;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float jump;
 
     [Header("Stamina Parameters")]
@@ -28,6 +28,8 @@ public class PlayerBoss : MonoBehaviour
     private Animator anim;
     
     private Coroutine recharge;
+
+    
 
     
     
@@ -87,6 +89,7 @@ public class PlayerBoss : MonoBehaviour
             if(recharge != null) StopCoroutine(recharge);
             recharge = StartCoroutine(RechargeStamina());  
         }
+
         
     }
     private void Jump()
